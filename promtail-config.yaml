@@ -2,17 +2,17 @@ server:
   http_listen_port: 9080
 
 positions:
-  filename: /tmp/positions.yaml
+  filename: /tmp/positions.yaml # Arquivo em que o Promtail guardará aonde parou de ler cada arquivo para não ter que reeler todo arquivo novamente.
 
 clients:
-  - url: http://192.168.15.6:3100/loki/api/v1/push
+  - url: http://<ip>:3100/loki/api/v1/push # Endereço do Loki, no meu caso 192.168.15.6
 
 scrape_configs:
   - job_name: docker-logs
     docker_sd_configs:
-      - host: unix:///var/run/docker.sock  # Corrigido de ".soc" para ".sock"
-        refresh_interval: 5s
-        filters:
+      - host: unix:///var/run/docker.sock  # Necessário adicionar volume /var/run/docker.soc
+        refresh_interval: 5s # A cada 5 segundos o discovery ocorrerá.
+        filters: # Filtrar pelo nome do container em especifico.
           - name: name
             values: [prometheus]  # Filtra apenas containers com "prometheus" no nome
     pipeline_stages:
