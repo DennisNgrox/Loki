@@ -8,8 +8,7 @@ Este repositório contém um projeto desenvolvido para realizar laboratórios ut
 - [Como Utilizar](#como-utilizar)
 - [Configuração do Promtail](#configuração-do-promtail)
 - [Gerar Logs com flog](#gerar-logs-com-flog)
-- [Contribuição](#contribuição)
-- [Licença](#licença)
+
 
 ## Instalação
 
