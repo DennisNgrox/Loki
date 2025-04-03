@@ -71,14 +71,7 @@ docker run -it mingrammer/flog flog -s 10s -n 50 >> arquivo.log
 
 Este comando irá gerar 50 logs a cada 10 segundos e salvar em um arquivo chamado arquivo.log.
 
-Contribuição
-Contribuições são bem-vindas! Se você deseja contribuir com este projeto, siga os passos abaixo:
-
-Faça um fork do projeto
-Crie um branch para sua feature (git checkout -b feature/nova-feature)
-Commit suas mudanças (git commit -m 'Adiciona nova feature')
-Faça um push para o branch (git push origin feature/nova-feature)
-Abra um Pull Request
+<h1></h1>
 
 ```code
 
