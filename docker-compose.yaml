@@ -19,21 +19,21 @@ services:
       - "3100:3100"
     command: --config.file=/etc/loki/local-config.yaml
     volumes:
-      - ./local-config.yaml:/etc/loki/local-config.yaml
-    restart: unless-stopped
+      - ./local-config.yaml:/etc/loki/local-config.yaml # Arquivo de configuração do Loki
+    restart: unless-stopped # Adiciona uma política de reinício
 
   #Promtail
   promtail:
     image: grafana/promtail:3.2.1
     volumes:
-      - "/home/homelab/Promtail/:/var/log/promtail/"
-      - "/home/homelab/Promtail/promtail-config.yaml:/mnt/config/promtail-config.yaml"
-      - "/var/log:/var/log"
-      - "/var/lib/docker/containers/:/var/lib/docker/containers/"
-      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/home/homelab/Promtail/:/var/log/promtail/"  #Linkei meu diretorio do homelab para ler o arquivo de log que estava gerando com o flog
+      - "/home/homelab/Promtail/promtail-config.yaml:/mnt/config/promtail-config.yaml" #Linkei o arquivo de configuração do Promtail
+      - "/var/log:/var/log" #Linkei o diretorio de logs para testes de scrappe
+      - "/var/lib/docker/containers/:/var/lib/docker/containers/" # Linkei o diretorio dos containers para realizar o scrapping em cada container
+      - "/var/run/docker.sock:/var/run/docker.sock" # Linkei arquivo para conseguir executar o docker e listar os nomes dos containers para ser mais fácil a busca no Grafana
     user: "0"
     command: --config.file=/mnt/config/promtail-config.yaml
-    restart: unless-stopped
+    restart: unless-stopped # Adiciona uma política de reinício
 
   #Prometheus
   prometheus:
@@ -42,7 +42,7 @@ services:
     ports:
       - "9090:9090"  # Expondo a porta 9090 do Prometheus
     volumes:
-      - ./prometheus.yaml:/etc/prometheus/prometheus.yml  # Corrigindo o nome do arquivo de configuração
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yml 
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"  # Garantir que o Prometheus use o arquivo correto
     restart: unless-stopped  # Adiciona uma política de reinício
