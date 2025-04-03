@@ -1,6 +1,7 @@
-# Loki
+# Laboratório Loki
 
 Este repositório contém um projeto desenvolvido para realizar laboratórios utilizando Pipeline Stages para adicionar labels através de regex. Além disso, utilizamos o flog para gerar logs para testes.
+Varios promtail-config serão adicionados, cada um tratando de uma funcionalidade do promtail.
 
 ## Sumário
 
