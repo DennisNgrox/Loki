@@ -63,7 +63,7 @@ scrape_configs: # Sessão de Scrape
 
 <h3>Gerar Logs com flog</h3>
 <h1></h1>
-Utilizamos a ferramenta flog para gerar logs de teste. Para gerar logs utilizando flog, execute o seguinte comando:
+Utilizei a ferramenta flog para gerar logs de teste. Para gerar logs utilizando flog, execute o seguinte comando:
 
 ```bash
 docker run -it mingrammer/flog flog -s 10s -n 50 >> arquivo.log
