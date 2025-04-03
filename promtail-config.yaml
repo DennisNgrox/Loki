@@ -3,23 +3,23 @@ server:
   grpc_listen_port: 0
 
 positions:
-  filename: /tmp/positions.yaml
+  filename: /tmp/positions.yaml # Nesse arquivo o Promtail guarda a posição que o promtail parou na leitura dos arquivos de log.
 
 clients:
-  - url: http://192.168.15.6:3100/loki/api/v1/push
+  - url: http://192.168.15.6:3100/loki/api/v1/push # IP de envio dos logs para o backend Loki
 
-scrape_configs:
-  - job_name: docker-logs
-    docker_sd_configs:
-      - host: unix:///var/run/docker.sock
-        refresh_interval: 5s
-        filters:
+scrape_configs: # Sessão de Scrape
+  - job_name: docker-logs # Nome do Job
+    docker_sd_configs: # Utilitário para realizar scrape do docker (Discovery)
+      - host: unix:///var/run/docker.sock # Socket utilizado.
+        refresh_interval: 5s # Discovery a cada 5 segundos
+        filters: # Filtros
           - name: name
-            values: [prometheus]
-    pipeline_stages:
-      - docker: {}
-    relabel_configs:
-      - source_labels: ['__meta_docker_container_name']
+            values: [prometheus] # Realizará o scrape apenas do container com nome "prometheus"
+    pipeline_stages: # Estagio de alterações, adições, analises dos logs.
+      - docker: {} # Utilizado para tratativa do docker, gera valores em especifico como logs, stream (stdout ou stderror) e timestamp
+    relabel_configs: # Alterando labels para o nome do container
+      - source_labels: ['__meta_docker_container_name'] 
         regex: '/([^\.]+)'
         target_label: 'container_name'
         replacement: '$1'
@@ -29,16 +29,16 @@ scrape_configs:
       - targets: [localhost]
         labels:
           job: flog
-          __path__: /tmp/arquivo.log
+          __path__: /tmp/arquivo.log # Arquivo populado por flog
 
     pipeline_stages:
     - match:
-        selector: '{job="flog"}'
+        selector: '{job="flog"}' # Selector utilizando o job configurado acima.
         stages:
         - regex:
-            expression: '^(?P<ip>\d+.\d+.\d+.\d+).*.*]\s+"(?P<method>\w+)+\s(?P<path>\/.*)\s.*"\s(?P<status_code>.*)\s\w+'
+            expression: '^(?P<ip>\d+.\d+.\d+.\d+).*.*]\s+"(?P<method>\w+)+\s(?P<path>\/.*)\s.*"\s(?P<status_code>.*)\s\w+' # Regex para listar grupos de IP, method, path e status_code, exemplo de log "217.229.169.200 - - [01/Apr/2025:16:24:17 +0000] "HEAD /paradigms HTTP/2.0" 501 24098"
 
-        - labels:
+        - labels: # Cada grupo feito pela regex entra em uma label em especifico, assim cada log terá essas labels o que facilita a busca utilizando PromQL
             ip:
             method:
             path:
