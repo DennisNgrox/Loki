@@ -33,7 +33,32 @@ O arquivo de configuração do Promtail (promtail-config.yaml) deve ser ajustado
 
 Exemplo de configuração:
 ```yaml
-<conteúdo do arquivo promtail-config.yaml>
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml # Nesse arquivo o Promtail guarda a posição que o promtail parou na leitura dos arquivos de log.
+
+clients:
+  - url: http://192.168.15.6:3100/loki/api/v1/push # IP de envio dos logs para o backend Loki
+
+scrape_configs: # Sessão de Scrape
+  - job_name: docker-logs # Nome do Job
+    docker_sd_configs: # Utilitário para realizar scrape do docker (Discovery)
+      - host: unix:///var/run/docker.sock # Socket utilizado.
+        refresh_interval: 5s # Discovery a cada 5 segundos
+        filters: # Filtros
+          - name: name
+            values: [prometheus] # Realizará o scrape apenas do container com nome "prometheus"
+    pipeline_stages: # Estagio de alterações, adições, analises dos logs.
+      - docker: {} # Utilizado para tratativa do docker, gera valores em especifico como logs, stream (stdout ou stderror) e timestamp
+    relabel_configs: # Alterando labels para o nome do container
+      - source_labels: ['__meta_docker_container_name'] 
+        regex: '/([^\.]+)'
+        target_label: 'container_name'
+        replacement: '$1'
+
 ```
 
 <h3>Gerar Logs com flog</h3>
