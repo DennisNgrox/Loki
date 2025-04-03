@@ -4,7 +4,7 @@ Este repositório contém um projeto desenvolvido para realizar laboratórios. A
 Varios promtail-config serão adicionados, cada um tratando de uma funcionalidade do promtail.
 <p></p>
 
- ![Open Source ❤️](https://img.shields.io/badge/Open%20Source-black) ![Grafana](https://img.shields.io/badge/Grafana%20Loki-orange) ![Project-learning](https://img.shields.io/badge/Learning%20Project-green)
+ ![Open Source ❤️](https://img.shields.io/badge/Open%20Source-blue) ![Grafana](https://img.shields.io/badge/Grafana%20Loki-orange) ![Project-learning](https://img.shields.io/badge/Learning%20Project-green)
 
 ## Sumário
 
