@@ -1,6 +1,6 @@
 # Laboratório Loki
 
-Este repositório contém um projeto desenvolvido para realizar laboratórios. Além disso, utilizamos o flog para gerar logs para testes.
+Este repositório contém um projeto desenvolvido para realizar laboratórios. Além disso, utilizei o flog para gerar logs para testes.
 Varios promtail-config serão adicionados, cada um tratando de uma funcionalidade do promtail.
 <p></p>
 
