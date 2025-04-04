@@ -1,7 +1,7 @@
 # Laboratório Loki
 
 Este repositório contém um projeto desenvolvido para realizar laboratórios. Além disso, utilizei o flog para gerar logs para testes.
-Varios promtail-config serão adicionados, cada um tratando de uma funcionalidade do promtail.
+Varios promtail-config serão adicionados assim como alloy.configs, cada um tratando de uma funcionalidade.
 <p></p>
 
  ![Open Source ❤️](https://img.shields.io/badge/Open%20Source-blue) ![Grafana](https://img.shields.io/badge/Grafana%20Loki-orange) ![Project-learning](https://img.shields.io/badge/Learning%20Project-green)
